@@ -1,7 +1,7 @@
 .card-container
 {
     /*border:1px solid black;
-    */width:350px;
+    */
     margin:40px;
     padding: 30px;
     background-color: #fff;
@@ -42,7 +42,7 @@
 }
 
 .Recc{
-    width: 100%;
+    width: fit-content;
     height: 100px;
     font-weight:bold;
     font-size:40px;
