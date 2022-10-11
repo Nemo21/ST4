@@ -1,7 +1,9 @@
 import "./App.css";
 import { useState } from "react";
+import { render } from "react-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import FormInput from "./components/FormInput";
-import Card from "./components/Card";
+import NewCard from "./components/NewCard";
 
 function App() {
   const [data, setData] = useState([]);
@@ -49,34 +51,35 @@ function App() {
     // console.log(Object.fromEntries(data1.entries()));
   };
   const onChange = (e) => {
+    e.preventDefault();
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        <h1>Customer Registeration</h1>
-        {Inputs &&
-          Inputs.map((input) => (
-            <FormInput
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              onChange={onChange}
-            />
-          ))}
-        <button>Submit</button>
-      </form>
-      <div className="cards">
-        {data &&
-          data.map((item) => (
-            <Card
-              Name={item.Name}
-              Purpose={item.Purpose}
-              Rating={item.Rating}
-              Recc={item.Recc}
-            ></Card>
-          ))}
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <form onSubmit={handleSubmit}>
+                <h1>Customer Registeration</h1>
+                {Inputs &&
+                  Inputs.map((input) => (
+                    <FormInput
+                      key={input.id}
+                      {...input}
+                      value={values[input.name]}
+                      onChange={onChange}
+                    />
+                  ))}
+                <button>Submit</button>
+                <Link to="/card">Go to Cards</Link>
+              </form>
+            }
+          ></Route>
+          <Route path="/card" element={<NewCard data={data} />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
